@@ -1,5 +1,5 @@
 import ProductInteraction from "@/components/ProductInteraction";
-import {ProductType} from "@/types"
+import {ProductType} from "@repo/types"
 import Image from "next/image";
 import { describe } from "zod/v4/core";
 
@@ -17,7 +17,10 @@ const product: ProductType ={
         gray:"/products/1g.png",
         purple:"/products/1p.png",
         green:"/products/1gr.png"
-    }
+    },
+    categorySlug:"test",
+    createAt: new Date(),
+    updatedAt: new Date(),
 }
 
 export const generateMetadata = async ({params}:{params:{id:string}}) => {
@@ -47,7 +50,7 @@ const ProductPage = async ({
         {/* IMAGE */}
         <div className="w-full lg:w-5/12 relative aspect-[2/3]">
         <Image 
-            src={product.images?.[selectedColor] || ""}
+            src={(product.images as Record<string, string>)?.[selectedColor] || ""}
             alt={product.name}
             fill
             className="object-contain rounded-md"

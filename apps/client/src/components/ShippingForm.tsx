@@ -1,4 +1,4 @@
-import { ShippingFormInputs, shippingFormSchema } from "@/types"
+import { ShippingFormInputs, shippingFormSchema } from "@repo/types"
 import {zodResolver} from "@hookform/resolvers/zod"
 import { ArrowRight } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -29,6 +29,7 @@ const ShippingForm = ({setShippingForm}:{setShippingForm:(data:ShippingFormInput
                 id="name"
                 placeholder="John Doe"
                 {...register("name")}
+                value="Uygar M"
                 />
                 {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
             </div>
@@ -39,6 +40,7 @@ const ShippingForm = ({setShippingForm}:{setShippingForm:(data:ShippingFormInput
                 id="email"
                 placeholder="johndoe@gmail.com"
                 {...register("email")}
+                value="uygarm@gmail.com"
                 />
                 {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
             </div>
@@ -49,6 +51,7 @@ const ShippingForm = ({setShippingForm}:{setShippingForm:(data:ShippingFormInput
                 id="phone"
                 placeholder="123456"
                 {...register("phone")}
+                value="12345678"
                 />
                 {errors.phone && <p className="text-xs text-red-500">{errors.phone.message}</p>}
             </div>
@@ -59,6 +62,7 @@ const ShippingForm = ({setShippingForm}:{setShippingForm:(data:ShippingFormInput
                 id="address"
                 placeholder="1234 Main St,Anytown"
                 {...register("address")}
+                value="1234 Main St,Anytown"
                 />
                 {errors.address && <p className="text-xs text-red-500">{errors.address.message}</p>}
             </div>
@@ -69,6 +73,7 @@ const ShippingForm = ({setShippingForm}:{setShippingForm:(data:ShippingFormInput
                 id="city"
                 placeholder="Skopje"
                 {...register("city")}
+                value="skopje"
                 />
                 {errors.city && <p className="text-xs text-red-500">{errors.city.message}</p>}
             </div>

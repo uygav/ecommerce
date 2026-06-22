@@ -1,7 +1,7 @@
 "use client"
 import useCartStore from "@/stores/cartStore";
 import { toast } from "react-toastify";
-import {ProductType} from "@/types"
+import {ProductType} from "@repo/types"
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 import { usePathname, useSearchParams , useRouter } from "next/navigation";
 import { useState } from "react";

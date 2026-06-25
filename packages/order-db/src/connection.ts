@@ -10,7 +10,7 @@ export const connectOrderDB = async ()=> {
     }
 
     try{
-        await mongoose.connect(process.env.MONGO_URL)
+        await mongoose.connect(process.env.MONGO_URL, { serverSelectionTimeoutMS: 10000 })
         isConnected = true;
         console.log("Connected to MongoDB!")
     }catch (error){

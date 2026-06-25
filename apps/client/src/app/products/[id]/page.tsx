@@ -5,27 +5,38 @@ import { describe } from "zod/v4/core";
 
 // TEMPORARY
 
-const product: ProductType ={
-    id:1,
-    name:"adidas corefit t-shirt",
-    shortDescription:"lorem lorem lorem ipsum dolor sit amet consect adips",
-    description:"lorem lorem lorem ipsum dolor sit amet consect adips lorem ipsum dolor sit amet",
-    price:59.9,
-    sizes:["xs","s","m","l","xl"],
-    colors:["gray","purple","green"],
-    images:{
-        gray:"/products/1g.png",
-        purple:"/products/1p.png",
-        green:"/products/1gr.png"
-    },
-    categorySlug:"test",
-    createAt: new Date(),
-    updatedAt: new Date(),
-}
+// const product: ProductType ={
+//     id:1,
+//     name:"adidas corefit t-shirt",
+//     shortDescription:"lorem lorem lorem ipsum dolor sit amet consect adips",
+//     description:"lorem lorem lorem ipsum dolor sit amet consect adips lorem ipsum dolor sit amet",
+//     price:59.9,
+//     sizes:["xs","s","m","l","xl"],
+//     colors:["gray","purple","green"],
+//     images:{
+//         gray:"/products/1g.png",
+//         purple:"/products/1p.png",
+//         green:"/products/1gr.png"
+//     },
+//     categorySlug:"test",
+//     createAt: new Date(),
+//     updatedAt: new Date(),
+// }
+
+const fetchProduct = async (id: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL}/products/${id}`
+  );
+  const data: ProductType = await res.json();
+  return data;
+};
+
+
 
 export const generateMetadata = async ({params}:{params:{id:string}}) => {
-    // TODO:get the product
-    // TEMPORARY
+    const { id } = await params;
+
+    const product = await fetchProduct(id);
     return{
         title:product.name,
         describe:product.description
@@ -41,6 +52,10 @@ const ProductPage = async ({
 })=> {
 
     const {size, color} = await searchParams;
+
+    const { id } = await params;
+
+    const product = await fetchProduct(id);
 
     const selectedSize = size || (product.sizes[0] as string)
     const selectedColor = color || (product.colors[0] as string)

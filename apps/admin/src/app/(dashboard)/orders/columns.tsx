@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -12,22 +11,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { OrderType } from "@repo/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
-export type Product = {
-  id: string | number;
-  price: number;
-  name: string;
-  shortDescription: string;
-  description: string;
-  size:string[]
-  color:string[]
-  images:Record<string,string>
-};
+// export type Payment = {
+//   id: string;
+//   amount: number;
+//   fullName: string;
+//   userId: string;
+//   email: string;
+//   status: "pending" | "processing" | "success" | "failed";
+// };
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<OrderType>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -47,43 +45,42 @@ export const columns: ColumnDef<Product>[] = [
     ),
   },
   {
-    accessorKey: "image",
-    header: "Image",
-    cell:({row})=> {
-          const product = row.original;
-          return(
-            <div className="w-9 h-9 relative">
-              <Image
-              src={product.images?.[product.color[0] || ""] || ""}
-              alt={product.name}
-              fill
-              className="rounded-full object-cover"
-              />
-            </div>
-          )
-        }
+    accessorKey: "_id",
+    header: "ID",
   },
   {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
-    accessorKey: "price",
+    accessorKey: "email",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Price
+          Email
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey:"shortDescription",
-    header:"Description"
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.getValue("status");
+
+      return (
+        <div
+          className={cn(
+            `p-1 rounded-md w-max text-xs`,
+            status === "pending" && "bg-yellow-500/40",
+            status === "success" && "bg-green-500/40",
+            status === "failed" && "bg-red-500/40"
+          )}
+        >
+          {status as string}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "amount",
@@ -93,7 +90,7 @@ export const columns: ColumnDef<Product>[] = [
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(amount);
+      }).format(amount/100);
 
       return <div className="text-right font-medium">{formatted}</div>;
     },
@@ -101,7 +98,7 @@ export const columns: ColumnDef<Product>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const product = row.original;
+      const order = row.original;
 
       return (
         <DropdownMenu>
@@ -114,14 +111,15 @@ export const columns: ColumnDef<Product>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(product.id.toString())}
+              onClick={() => navigator.clipboard.writeText(order._id)}
             >
-              Copy product ID
+              Copy order ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/users/${product.id}`}>View Customer</Link>
+              <Link href={`/users/${order.userId}`}>View Customer</Link>
             </DropdownMenuItem>
+            <DropdownMenuItem>View order details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

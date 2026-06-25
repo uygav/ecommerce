@@ -34,7 +34,7 @@ sessionRoute.post('/create-checkout-session',shouldBeUser, async (c) => {
     client_reference_id: userId,
     mode: 'payment',
     ui_mode: 'elements',
-    return_url: 'http://localhost:3002/return?session_id={CHECKOUT_SESSION_ID}',
+    return_url: `${process.env.CLIENT_URL || 'http://localhost:3002'}/return?session_id={CHECKOUT_SESSION_ID}`,
   });
 
   console.log(session)

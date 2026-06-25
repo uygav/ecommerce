@@ -1,11 +1,13 @@
 import { serve } from '@hono/node-server'
-import { timeStamp } from 'console'
 import { Hono } from 'hono'
-import { clerkMiddleware, getAuth } from '@hono/clerk-auth'
+import { clerkMiddleware } from '@clerk/hono'
 import { shouldBeUser } from './middleware/authMiddleware.js'
 import stripe from './utils/stripe.js'
 import sessionRoute from './routes/session.route.js'
 import { cors } from "hono/cors"
+import webhookRoute from './routes/webhooks.route.js'
+import { consumer, producer } from './utils/kafka.js'
+import { runKafkaSubscriptions } from './utils/subscriptions.js'
 
 
 const app = new Hono()
@@ -21,6 +23,7 @@ app.get('/health', (c) => {
 })
 
 app.route("/sessions", sessionRoute)
+app.route("/webhooks", webhookRoute)
 
 // app.post('/create-stripe-product', async (c) => {
 //   const res = await stripe.products.create({
@@ -45,8 +48,13 @@ app.route("/sessions", sessionRoute)
 
 // })
 
-const start = () => {
+const start = async() => {
   try{
+    Promise.all([
+      await producer.connect(),
+      await consumer.connect()
+    ])
+    await runKafkaSubscriptions()
     serve(
       {
         fetch:app.fetch,

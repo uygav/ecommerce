@@ -1,5 +1,3 @@
-"use client"
-
 import Link from "next/link";
 
 
@@ -11,7 +9,7 @@ const ReturnPage = async ({
     const session_id = (await searchParams)?.session_id
 
     if(!session_id){
-        <div>no session id found!</div>
+        return <div>no session id found!</div>
     }
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_SERVICE_URL}/sessions/${session_id}`)

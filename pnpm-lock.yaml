@@ -20,15 +20,21 @@ importers:
 
   apps/admin:
     dependencies:
+      '@clerk/nextjs':
+        specifier: ^7.5.3
+        version: 7.5.3(next@16.2.7(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@hookform/resolvers':
         specifier: ^3.10.0
-        version: 3.10.0(react-hook-form@7.79.0(react@19.2.4))
+        version: 3.10.0(react-hook-form@7.62.0(react@19.2.4))
       '@radix-ui/react-label':
         specifier: ^2.1.10
         version: 2.1.10(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-slot':
         specifier: ^1.2.5
         version: 1.3.0(@types/react@19.2.2)(react@19.2.4)
+      '@tanstack/react-query':
+        specifier: ^5.101.1
+        version: 5.101.1(react@19.2.4)
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -63,8 +69,11 @@ importers:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
       react-hook-form:
-        specifier: ^7.78.0
-        version: 7.79.0(react@19.2.4)
+        specifier: ^7.62.0
+        version: 7.62.0(react@19.2.4)
+      react-toastify:
+        specifier: ^11.1.0
+        version: 11.1.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       recharts:
         specifier: 3.8.0
         version: 3.8.0(@types/react@19.2.2)(react-dom@19.2.4(react@19.2.4))(react-is@16.13.1)(react@19.2.4)(redux@5.0.1)
@@ -78,12 +87,15 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       zod:
-        specifier: ^3.25.76
-        version: 3.25.76
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -105,6 +117,34 @@ importers:
       typescript:
         specifier: ^5
         version: 5.9.2
+
+  apps/auth-service:
+    dependencies:
+      '@clerk/express':
+        specifier: ^2.1.27
+        version: 2.1.27(express@5.2.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@repo/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
+      cors:
+        specifier: ^2.8.6
+        version: 2.8.6
+      express:
+        specifier: ^5.0.3
+        version: 5.2.1
+    devDependencies:
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@types/cors':
+        specifier: ^2.8.19
+        version: 2.8.19
+      '@types/express':
+        specifier: ^5.0.6
+        version: 5.0.6
 
   apps/client:
     dependencies:
@@ -173,17 +213,45 @@ importers:
         specifier: ^5
         version: 5.9.2
 
+  apps/email-service:
+    dependencies:
+      '@repo/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
+      nodemailer:
+        specifier: ^9.0.1
+        version: 9.0.1
+    devDependencies:
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@types/node':
+        specifier: ^26.0.1
+        version: 26.0.1
+      '@types/nodemailer':
+        specifier: ^8.0.1
+        version: 8.0.1
+
   apps/order-service:
     dependencies:
       '@clerk/fastify':
         specifier: ^3.1.37
         version: 3.1.37(fastify@5.8.5)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@repo/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
       '@repo/order-db':
         specifier: workspace:*
         version: link:../../packages/order-db
       '@repo/types':
         specifier: workspace:*
         version: link:../../packages/types
+      date-fns:
+        specifier: ^4.4.0
+        version: 4.4.0
       fastify:
         specifier: ^5.5.0
         version: 5.8.5
@@ -206,12 +274,15 @@ importers:
 
   apps/payment-service:
     dependencies:
-      '@hono/clerk-auth':
-        specifier: ^3.1.1
-        version: 3.1.1(hono@4.12.25)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/hono':
+        specifier: ^0.1.41
+        version: 0.1.41(hono@4.12.25)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@hono/node-server':
         specifier: ^2.0.5
         version: 2.0.5(hono@4.12.25)
+      '@repo/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
       hono:
         specifier: ^4.12.25
         version: 4.12.25
@@ -240,6 +311,9 @@ importers:
       '@clerk/express':
         specifier: ^2.1.27
         version: 2.1.27(express@5.2.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@repo/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
       '@repo/product-db':
         specifier: workspace:*
         version: link:../../packages/product-db
@@ -299,6 +373,19 @@ importers:
         specifier: ^8.50.0
         version: 8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2)
 
+  packages/kafka:
+    dependencies:
+      kafkajs:
+        specifier: ^2.2.4
+        version: 2.2.4
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^26.0.0
+        version: 26.0.0
+
   packages/order-db:
     dependencies:
       mongoose:
@@ -342,6 +429,9 @@ importers:
 
   packages/types:
     dependencies:
+      '@repo/order-db':
+        specifier: workspace:*
+        version: link:../order-db
       '@repo/product-db':
         specifier: workspace:*
         version: link:../product-db
@@ -493,12 +583,12 @@ packages:
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
 
-  '@clerk/backend@2.33.5':
-    resolution: {integrity: sha512-YOzUYJfb1d4w+0rKKm+LnnNpkJGQ+NI/g7qmF3mgaSN9X9huteuwCZyufdsI7z2DDkwy/yGRgb9eUWV96t7xLg==}
-    engines: {node: '>=18.17.0'}
-
   '@clerk/backend@3.7.1':
     resolution: {integrity: sha512-2CeOUZJQ0aKZ51fdaoCEh8ffOC7KD5w9Q8HZXw0AnEWuxFiplyyhwDo/ixFWYueQULWOehjzRNR89YEQTwuY0w==}
+    engines: {node: '>=20.9.0'}
+
+  '@clerk/backend@3.8.3':
+    resolution: {integrity: sha512-kVL32qvH3jB3JeXr/nimcUTzKADly4NhBhwaKBGsEHANaHFBbpNhu8TEirHiEiOPhUINql34P7bvNEdrvPBr+Q==}
     engines: {node: '>=20.9.0'}
 
   '@clerk/express@2.1.27':
@@ -512,6 +602,12 @@ packages:
     engines: {node: '>=20.9.0'}
     peerDependencies:
       fastify: '>=5'
+
+  '@clerk/hono@0.1.41':
+    resolution: {integrity: sha512-LH7WeLBaH9NLqB2SbTJivScjSXFRcaINHfXO3zatzVWA/X2PhwM1knivVJV4H+cduZhfPWzhcNLz7EM8qUGrBA==}
+    engines: {node: '>=20.9.0'}
+    peerDependencies:
+      hono: '>=4'
 
   '@clerk/nextjs@7.5.3':
     resolution: {integrity: sha512-/PuTjaEi0ks11bRPjKGnqi3OZXwjn+8xSCeLmcjHc04C5Ohe44V935XXYgT2bOWqFz0uzULSSVqnr6b6mA1jag==}
@@ -528,18 +624,6 @@ packages:
       react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
       react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
 
-  '@clerk/shared@3.47.7':
-    resolution: {integrity: sha512-9Yv4MJFEaC7BzV0whxa4txQ4SoMu/3j1LBnI85EBykb5CcfXxIKvNX/9sjMUUySHlTOjsj7XZa5i3W5Dx02K/Q==}
-    engines: {node: '>=18.17.0'}
-    peerDependencies:
-      react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
-      react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-
   '@clerk/shared@4.18.0':
     resolution: {integrity: sha512-WHqnq1dUUjBFrrnptQEpRpoP3H2Pag00E2MP6+aHfJICNjqSSZU3NecOpcKeizYr77hFG38jqV9jcIyB5UpmBQ==}
     engines: {node: '>=20.9.0'}
@@ -552,9 +636,17 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/types@4.101.25':
-    resolution: {integrity: sha512-gPxm3hlBkP7B9EfKyp3/UDonNOjg7Z0UvqfrMj5u8gA8nyzvC1UFYtSTTmTfgSY82+5Yo38YV0DYu9vNf6t9CQ==}
-    engines: {node: '>=18.17.0'}
+  '@clerk/shared@4.21.0':
+    resolution: {integrity: sha512-/Ac4+aA6rNsDxk3UOYlzstR1WNSB32sbnwdKQZbzShp8c1bInvYGp9gxj7Y3V8CZXRWdGTvg///AsZ2qhSL4nQ==}
+    engines: {node: '>=20.9.0'}
+    peerDependencies:
+      react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+      react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   '@date-fns/tz@1.5.0':
     resolution: {integrity: sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg==}
@@ -812,12 +904,6 @@ packages:
 
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
-
-  '@hono/clerk-auth@3.1.1':
-    resolution: {integrity: sha512-wOQaxxaBsVPSNDajUkhpv+9QWwpzLp//Kjr2H3seTgbCmskhPG356GbQjH7/sjQHcgAQKnwCc0cPk4iWCIr24A==}
-    engines: {node: '>=16.x.x'}
-    peerDependencies:
-      hono: '>=3.0.0'
 
   '@hono/node-server@1.19.11':
     resolution: {integrity: sha512-dr8/3zEaB+p0D2n/IUrlPF1HZm586qgJNXK1a9fhg/PzdtkK7Ksd5l312tJX2yBuALqDYBlG20QEbayqPyxn+g==}
@@ -2123,6 +2209,14 @@ packages:
   '@tanstack/query-core@5.101.0':
     resolution: {integrity: sha512-cQetA74EB+seWySv1TTKr828TnP0u39m6LykwDXIo84SNortpDkp30TMEjkqtYCNP9c40uT/iwl6MLiufEt0Ow==}
 
+  '@tanstack/query-core@5.101.1':
+    resolution: {integrity: sha512-Y6Y92dkXtNqx67m2pMSxUsA3zOCwv862JexZRP8/EPwvKXMPu9m8rv43spiXWzOUIggQ3SQApttALStzhA8B4g==}
+
+  '@tanstack/react-query@5.101.1':
+    resolution: {integrity: sha512-ZnONUuQKJe1bJMStXUL1s5uKN9FcfC28j5cK+iDZcdSHtUv1wtin1cGc/Oewhf2Oc4eKY7lggtpvT/AbMmhHew==}
+    peerDependencies:
+      react: ^18 || ^19
+
   '@tanstack/react-table@8.21.3':
     resolution: {integrity: sha512-5nNMTSETP4ykGegmVkhjcS8tTLW6Vl4axfEGQN3v0zdHYbK4UfoqfPChclTrJ4EoK9QynqAu9oUf8VEmrpZ5Ww==}
     engines: {node: '>=12'}
@@ -2226,6 +2320,12 @@ packages:
 
   '@types/node@26.0.0':
     resolution: {integrity: sha512-vf2YFi1iY9lHGwNJMs01biZFbKJkrZR1T6/MlzjhJLPdntOHLhTrDSnSVcdtvjihi4VQNlrFRIxLsDBlQpAipA==}
+
+  '@types/node@26.0.1':
+    resolution: {integrity: sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==}
+
+  '@types/nodemailer@8.0.1':
+    resolution: {integrity: sha512-PxpaInm8V1JQDd4j0ds5HfvWQk8JupS1C0Picb96QJsrrRDjBH+DlK7L4ZdNSqNULhiZRQHc40nLVShaGxXAMw==}
 
   '@types/pg@8.20.0':
     resolution: {integrity: sha512-bEPFOaMAHTEP1EzpvHTbmwR8UsFyHSKsRisLIHVMXnpNefSbGA1bD6CVy+qKjGSqmZqNqBDV2azOBo8TgkcVow==}
@@ -3530,6 +3630,10 @@ packages:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
 
+  kafkajs@2.2.4:
+    resolution: {integrity: sha512-j/YeapB1vfPT2iOIUn/vxdyKEuhuY2PxMBvf5JWux6iSaukAccrMtXEY/Lb7OvavDhOWME589bpLrEdnVHjfjA==}
+    engines: {node: '>=14.0.0'}
+
   kareem@3.3.0:
     resolution: {integrity: sha512-kpSuLD3/7RenBnjnJdOHXCKC8dTd1JzeOiJhN0necWWci6cC+qX+VuwPnMVgb+a4+KNJSfgqahpnfWaeDXCimw==}
     engines: {node: '>=18.0.0'}
@@ -3844,6 +3948,10 @@ packages:
   node-releases@2.0.47:
     resolution: {integrity: sha512-Uzmd6LXpouKo8EUK68IjH4+E01w/hXyV3R3g/geCJo+rXLNfh1xucB+LOzYEOQPSiUK3h/xZf0cQGcSsmyL2Og==}
     engines: {node: '>=18'}
+
+  nodemailer@9.0.1:
+    resolution: {integrity: sha512-Gwv8SQewT616ZM/URn0H54b8PWo/Wum7md3EW2aWy1lO27+WZCX+Xyak3J+NlmHUjDh5ME+uesJUDRbR3Ye8Bw==}
+    engines: {node: '>=6.0.0'}
 
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
@@ -4189,6 +4297,12 @@ packages:
     resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
     peerDependencies:
       react: ^19.2.4
+
+  react-hook-form@7.62.0:
+    resolution: {integrity: sha512-7KWFejc98xqG/F4bAxpL41NB3o1nnvQO1RWZT3TqRZYL8RryQETGfEdVnJN2fy1crCiBLLjkRBVK05j24FxJGA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
 
   react-hook-form@7.79.0:
     resolution: {integrity: sha512-mhYp/MTmXvzYX6AJcJVko0rktoIhhmRnEouObj4wF5i/tCttgJvnp1+9wRkpITZjDTqpo4IOSJqu0dBlPlV/Lw==}
@@ -4577,11 +4691,6 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
-
-  swr@2.3.4:
-    resolution: {integrity: sha512-bYd2lrhc+VarcpkgWclcUi92wYCpOgMws9Sd1hG1ntAu0NEy+14CbotuFjshBU2kt9rYj9TSmDcybpxpeTU1fg==}
-    peerDependencies:
-      react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   tailwind-merge@3.6.0:
     resolution: {integrity: sha512-uxL7qAVQriqRQPAyK3pj66VqskWqoZ37PW94jwOTwNfq/z9oyu1V+eqrZqtR2+fCiXdYOZe/Modt8GtvqNzu+w==}
@@ -5058,16 +5167,6 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@clerk/backend@2.33.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
-    dependencies:
-      '@clerk/shared': 3.47.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@clerk/types': 4.101.25(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      standardwebhooks: 1.0.0
-      tslib: 2.8.1
-    transitivePeerDependencies:
-      - react
-      - react-dom
-
   '@clerk/backend@3.7.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@clerk/shared': 4.18.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5080,6 +5179,15 @@ snapshots:
   '@clerk/backend@3.7.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@clerk/shared': 4.18.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      standardwebhooks: 1.0.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
+  '@clerk/backend@3.8.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@clerk/shared': 4.21.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       standardwebhooks: 1.0.0
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -5106,6 +5214,15 @@ snapshots:
       - react
       - react-dom
 
+  '@clerk/hono@0.1.41(hono@4.12.25)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@clerk/backend': 3.8.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/shared': 4.21.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      hono: 4.12.25
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
   '@clerk/nextjs@7.5.3(next@15.4.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@clerk/backend': 3.7.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5117,6 +5234,17 @@ snapshots:
       server-only: 0.0.1
       tslib: 2.8.1
 
+  '@clerk/nextjs@7.5.3(next@16.2.7(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@clerk/backend': 3.7.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/react': 6.10.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/shared': 4.18.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      next: 16.2.7(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+      server-only: 0.0.1
+      tslib: 2.8.1
+
   '@clerk/react@6.10.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@clerk/shared': 4.18.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5124,17 +5252,12 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       tslib: 2.8.1
 
-  '@clerk/shared@3.47.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@clerk/react@6.10.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      csstype: 3.1.3
-      dequal: 2.0.3
-      glob-to-regexp: 0.4.1
-      js-cookie: 3.0.7
-      std-env: 3.10.0
-      swr: 2.3.4(react@19.2.4)
-    optionalDependencies:
+      '@clerk/shared': 4.18.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
+      tslib: 2.8.1
 
   '@clerk/shared@4.18.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
@@ -5156,12 +5279,15 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@clerk/types@4.101.25(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@clerk/shared@4.21.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@clerk/shared': 3.47.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-    transitivePeerDependencies:
-      - react
-      - react-dom
+      '@tanstack/query-core': 5.101.1
+      dequal: 2.0.3
+      glob-to-regexp: 0.4.1
+      js-cookie: 3.0.7
+    optionalDependencies:
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   '@date-fns/tz@1.5.0': {}
 
@@ -5362,15 +5488,6 @@ snapshots:
 
   '@floating-ui/utils@0.2.11': {}
 
-  '@hono/clerk-auth@3.1.1(hono@4.12.25)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
-    dependencies:
-      '@clerk/backend': 2.33.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@clerk/shared': 3.47.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      hono: 4.12.25
-    transitivePeerDependencies:
-      - react
-      - react-dom
-
   '@hono/node-server@1.19.11(hono@4.12.25)':
     dependencies:
       hono: 4.12.25
@@ -5383,9 +5500,9 @@ snapshots:
     dependencies:
       hono: 4.12.25
 
-  '@hookform/resolvers@3.10.0(react-hook-form@7.79.0(react@19.2.4))':
+  '@hookform/resolvers@3.10.0(react-hook-form@7.62.0(react@19.2.4))':
     dependencies:
-      react-hook-form: 7.79.0(react@19.2.4)
+      react-hook-form: 7.62.0(react@19.2.4)
 
   '@hookform/resolvers@5.4.0(react-hook-form@7.79.0(react@19.1.0))':
     dependencies:
@@ -6630,6 +6747,13 @@ snapshots:
 
   '@tanstack/query-core@5.101.0': {}
 
+  '@tanstack/query-core@5.101.1': {}
+
+  '@tanstack/react-query@5.101.1(react@19.2.4)':
+    dependencies:
+      '@tanstack/query-core': 5.101.1
+      react: 19.2.4
+
   '@tanstack/react-table@8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@tanstack/table-core': 8.21.3
@@ -6729,6 +6853,14 @@ snapshots:
   '@types/node@26.0.0':
     dependencies:
       undici-types: 8.3.0
+
+  '@types/node@26.0.1':
+    dependencies:
+      undici-types: 8.3.0
+
+  '@types/nodemailer@8.0.1':
+    dependencies:
+      '@types/node': 20.19.43
 
   '@types/pg@8.20.0':
     dependencies:
@@ -8170,6 +8302,8 @@ snapshots:
       object.assign: 4.1.7
       object.values: 1.2.1
 
+  kafkajs@2.2.4: {}
+
   kareem@3.3.0: {}
 
   keyv@4.5.4:
@@ -8437,6 +8571,8 @@ snapshots:
       formdata-polyfill: 4.0.10
 
   node-releases@2.0.47: {}
+
+  nodemailer@9.0.1: {}
 
   npm-run-path@4.0.1:
     dependencies:
@@ -8844,13 +8980,13 @@ snapshots:
       react: 19.2.4
       scheduler: 0.27.0
 
+  react-hook-form@7.62.0(react@19.2.4):
+    dependencies:
+      react: 19.2.4
+
   react-hook-form@7.79.0(react@19.1.0):
     dependencies:
       react: 19.1.0
-
-  react-hook-form@7.79.0(react@19.2.4):
-    dependencies:
-      react: 19.2.4
 
   react-is@16.13.1: {}
 
@@ -8895,6 +9031,12 @@ snapshots:
       clsx: 2.1.1
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
+
+  react-toastify@11.1.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      clsx: 2.1.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   react@19.1.0: {}
 
@@ -9335,12 +9477,6 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
-
-  swr@2.3.4(react@19.2.4):
-    dependencies:
-      dequal: 2.0.3
-      react: 19.2.4
-      use-sync-external-store: 1.6.0(react@19.2.4)
 
   tailwind-merge@3.6.0: {}
 

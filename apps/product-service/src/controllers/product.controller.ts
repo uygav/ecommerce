@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import {prisma, Prisma } from "@repo/product-db"
+import { StripeProductType } from "@repo/types";
+import { producer } from "../utils/kafka";
 
 export const createProduct = async (req:Request, res:Response)=> {
     const data:Prisma.ProductCreateInput = req.body
@@ -20,6 +22,15 @@ export const createProduct = async (req:Request, res:Response)=> {
     }
 
     const product = await prisma.product.create({data})
+
+    const stripeProduct: StripeProductType ={
+        id:product.id.toString(),
+        name: product.name,
+        price:product.price
+    }
+
+    producer.send("product.created", {value:stripeProduct})
+
     res.status(201).json(product)
 }
 export const updateProduct = async (req:Request, res:Response)=> {
@@ -39,6 +50,9 @@ export const deleteProduct = async (req:Request, res:Response)=> {
     const deleteProduct = await prisma.product.delete({
         where: {id:Number(id)},
     })
+
+    producer.send("product.deleted", {value:Number(id)})
+
 
     return res.status(200).json(deleteProduct)
 }
@@ -67,13 +81,8 @@ export const getProducts = async (req:Request, res:Response)=> {
     
     const products = await prisma.product.findMany({
         where:{
-            category:{
-                slug: category as string
-            },
-            name:{
-                contains:search as string,
-                mode: "insensitive"
-            }
+            ...(category ? { category: { slug: category as string } } : {}),
+            ...(search ? { name: { contains: search as string, mode: "insensitive" } } : {}),
         },
         orderBy,
         take: limit? Number(limit) : undefined
